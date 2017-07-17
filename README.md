@@ -1,1 +1,1 @@
-# XRDP - Remote Connect to Gnome Classic
+# XRDP - Remote Connect to Mate

@@ -1,8 +1,8 @@
 FROM ubuntu
 
-RUN apt update && apt install --no-install-recommends -y gnome-session-flashback xrdp
+RUN apt update && apt install --no-install-recommends -y mate-core mate-desktop-environment mate-notification-daemon xrdp
 
-RUN echo "gnome-session --session=gnome-flashback-metacity --disable-acceleration-check & gnome-panel" > ~/.xsession
+RUN sed -i.bak '/fi/a #xrdp multi-users \n "mate-session" \n' /etc/xrdp/startwm.sh
 
 EXPOSE 3389
 
