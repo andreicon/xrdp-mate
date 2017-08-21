@@ -1,9 +1,24 @@
 FROM ubuntu
 
-RUN apt update && apt install --no-install-recommends -y mate-core mate-desktop-environment mate-notification-daemon xrdp
+RUN apt update
 
-RUN sed -i.bak '/fi/a #xrdp multi-users \n "mate-session" \n' /etc/xrdp/startwm.sh
+RUN apt install xrdp mate-core mate-desktop-environment mate-notification-daemon -y
 
-EXPOSE 3389
+RUN apt install supervisor curl -y
 
-CMD ["tail", "-f", "/dev/null"]
+RUN curl https://get.docker.com | bash
+
+RUN sed -i.bak '/fi/a #xrdp multiple users configuration \nmate-session\n' /etc/xrdp/startwm.sh
+
+COPY etc/ /etc/
+
+RUN useradd -ms /bin/bash andrei && \
+    sed -i '/TerminalServerUsers/d' /etc/xrdp/sesman.ini && \
+    sed -i '/TerminalServerAdmins/d' /etc/xrdp/sesman.ini && \
+    xrdp-keygen xrdp auto && \
+    usermod -aG docker andrei && \
+    usermod -aG sudo andrei && \
+    echo "andrei:andrei" | chpasswd
+
+CMD ["supervisord", "-n"]
+# CMD tail -f /dev/null
