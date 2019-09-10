@@ -4,5 +4,3 @@ services:
     build: .
     ports:
       - 3389:3389
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock

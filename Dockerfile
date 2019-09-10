@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt update && apt install -y
+RUN apt update && apt install -y \
     xrdp \
     mate-core \
     mate-desktop-environment \
@@ -19,4 +19,3 @@ RUN useradd -ms /bin/bash andrei && \
     echo "andrei:andrei" | chpasswd
 
 CMD ["supervisord", "-n"]
-# CMD tail -f /dev/null
