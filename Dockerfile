@@ -2,9 +2,9 @@ FROM ubuntu
 
 RUN apt update && apt install -y
     xrdp \
-    mate-core
-    mate-desktop-environment
-    mate-notification-daemon
+    mate-core \
+    mate-desktop-environment \
+    mate-notification-daemon \
     supervisor
     
 RUN sed -i.bak '/fi/a #xrdp multiple users configuration \nmate-session\n' /etc/xrdp/startwm.sh
