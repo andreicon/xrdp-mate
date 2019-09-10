@@ -1,7 +1,7 @@
 version: '2'
 services:
   xrdp:
-    image: andreicon/xrdp
+    build: .
     ports:
       - 3389:3389
     volumes:
